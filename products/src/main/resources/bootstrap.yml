@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: orders-service  # o products-service, según el microservicio
+  cloud:
+    config:
+      uri: http://localhost:8888

@@ -3,7 +3,17 @@ server:
 
 spring:
   application:
-    name: products
+    name: products-service
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/unir_db
+    username: root
+    password: Dnlcan92**
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
 
 eureka:
   client:

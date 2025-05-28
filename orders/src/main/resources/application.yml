@@ -3,11 +3,11 @@ server:
 
 spring:
   application:
-    name: orders
+    name: orders-service
   datasource:
-    url: jdbc:mysql://localhost:3306/orders_db
-    username: tu_usuario
-    password: tu_contraseña
+    url: jdbc:mysql://localhost:3306/unir_db
+    username: root
+    password: Dnlcan92**
   jpa:
     hibernate:
       ddl-auto: update
