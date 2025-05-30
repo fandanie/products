@@ -4,6 +4,7 @@ import com.example.orders.model.Order;
 import com.example.orders.model.request.CreateOrderRequest;
 import com.example.orders.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import com.example.orders.dto.ProductResponse;
@@ -16,8 +17,14 @@ import java.util.List;
 @Service
 public class OrderServiceImpl implements OrderService {
 
+    @Bean
+    public RestTemplate RestTemplate() {
+        return new RestTemplate();
+    }
     @Autowired
     private RestTemplate RestTemplate;
+
+    @Autowired
     private OrderRepository repository;
 
     @Override

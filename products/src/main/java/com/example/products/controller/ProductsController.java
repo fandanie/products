@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
+@RequestMapping("/products")
 public class ProductsController {
 
     private ProductsService service;
@@ -20,6 +21,17 @@ public class ProductsController {
     public ProductsController(ProductsService service) {
         this.service = service;
     }
+
+
+    @GetMapping("/stock/{productCode}")
+    public ResponseEntity<Boolean> checkStock(@PathVariable String productCode) {
+        Optional<Product> product = productRepository.findByProductCode(productCode);
+        if (product.isPresent() && product.get().getStock() > 0) {
+            return ResponseEntity.ok(true);
+        }
+        return ResponseEntity.ok(false);
+    }
+
 
     @GetMapping("/products")
     public ResponseEntity<List<Product>> getProducts() {

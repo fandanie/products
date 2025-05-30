@@ -20,6 +20,9 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "productCode")
+    private String productCode;
+
     @Column(name = "name")
     private String name;
 
@@ -28,6 +31,9 @@ public class Product {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "Stock")
+    private int stock;
 
     @Column(name = "visible")
     private boolean visible;
