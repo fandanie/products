@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: products-service
+  cluod:
+    config:
+      uri: http://localhost:8888
 
   datasource:
     url: jdbc:mysql://localhost:3306/unir_db

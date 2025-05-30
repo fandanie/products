@@ -6,6 +6,7 @@ import com.example.orders.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
+    private RestTemplate restTemplate;
 
     @GetMapping
     public ResponseEntity<List<Order>> getAllOrders() {
@@ -45,4 +47,18 @@ public class OrderController {
         boolean deleted = orderService.deleteOrder(id);
         return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
+
+    @PostMapping("/order-with-product")
+    public ResponseEntity<String> createOrderWithProduct(@RequestBody CreateOrderRequest request) {
+        // Llamada al microservicio de productos (usando Eureka)
+        String productDetails = restTemplate.getForObject(
+                "http://PRODUCT-SERVICE/api/products/" + request.getProductCode(), String.class);
+
+        // Aquí podrías guardar la orden si lo deseas
+        String response = "Orden creada para " + request.getCustomerName() +
+                " con producto: " + productDetails;
+
+        return ResponseEntity.ok(response);
+    }
+
 }
