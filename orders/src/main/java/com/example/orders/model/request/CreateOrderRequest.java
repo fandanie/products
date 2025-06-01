@@ -13,11 +13,9 @@ public class CreateOrderRequest {
     private String customerName;
 
     @NotBlank
-    private String productCode;
+    private Long productId;
 
     @NotNull
     private Integer quantity;
 
-    @NotBlank
-    private String status;
 }

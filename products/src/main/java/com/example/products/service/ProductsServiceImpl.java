@@ -39,19 +39,18 @@ public class ProductsServiceImpl implements ProductsService {
 
     @Override
     public Product createProduct(CreateProductRequest request) {
-        if (request != null && StringUtils.hasLength(request.getName())
-                && StringUtils.hasLength(request.getDescription())
-                && StringUtils.hasLength(request.getCountry())
-                && request.getVisible() != null) {
+        if (request != null &&
+                org.springframework.util.StringUtils.hasLength(request.getName()) &&
+                org.springframework.util.StringUtils.hasLength(request.getDescription())) {
 
             Product product = Product.builder()
                     .name(request.getName().trim())
                     .description(request.getDescription().trim())
-                    .country(request.getCountry().trim())
-                    .visible(request.getVisible())
+                    .price(request.getPrice())
+                    .stock(request.getStock())
                     .build();
             return repository.save(product);
         }
         return null;
     }
-    }
+}

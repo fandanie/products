@@ -9,7 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
+import java.math.BigDecimal;
 
 
 @Getter
@@ -20,17 +20,20 @@ import lombok.Setter;
 
 public class CreateProductRequest {
 
+    @JsonProperty("name")
     @NotBlank(message = "Name is required")
     private String name;
 
-    @JsonProperty("country")
-    @NotBlank(message = "Country is required")
-    private String country;
-
+    @JsonProperty("description")
     @NotBlank(message = "Description is required")
     private String description;
 
-    @NotNull(message = "Visible is required")
-    private Boolean visible;
+    @JsonProperty("price")
+    @NotBlank(message = "Price is required")
+    private BigDecimal price;
+
+    @JsonProperty("stock")
+    @NotBlank(message = "Stock is required")
+    private int stock;
 
 }
