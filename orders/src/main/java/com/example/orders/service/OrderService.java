@@ -1,14 +1,12 @@
 package com.example.orders.service;
-
-import com.example.orders.model.Order;
+import com.example.orders.dto.OrderResponse;
 import com.example.orders.model.request.CreateOrderRequest;
 
 import java.util.List;
 
 public interface OrderService {
-    Order createOrder(CreateOrderRequest request);
-    Order getOrderById(Long id);
-    List<Order> getAllOrders();
-    List<Order> getOrdersByStatus(String status);
+    OrderResponse createOrder(CreateOrderRequest request);
+    OrderResponse getOrderById(Long id);
+    List<OrderResponse> getAllOrders();
     boolean deleteOrder(Long id);
 }

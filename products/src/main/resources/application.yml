@@ -4,7 +4,7 @@ server:
 spring:
   application:
     name: products-service
-  cluod:
+  cloud:
     config:
       uri: http://localhost:8888
 

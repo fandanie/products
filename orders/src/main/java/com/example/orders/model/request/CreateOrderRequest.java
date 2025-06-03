@@ -12,8 +12,8 @@ public class CreateOrderRequest {
     @NotBlank
     private String customerName;
 
-    @NotBlank
-    private Long productId;
+    @NotNull
+    private Long id;
 
     @NotNull
     private Integer quantity;

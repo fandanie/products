@@ -24,16 +24,12 @@ public class CreateProductRequest {
     @NotBlank(message = "Name is required")
     private String name;
 
-    @JsonProperty("description")
-    @NotBlank(message = "Description is required")
-    private String description;
-
     @JsonProperty("price")
     @NotBlank(message = "Price is required")
     private BigDecimal price;
 
     @JsonProperty("stock")
     @NotBlank(message = "Stock is required")
-    private int stock;
+    private Integer stock;
 
 }

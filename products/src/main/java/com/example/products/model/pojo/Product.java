@@ -25,17 +25,11 @@ public class Product {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "description", nullable = false)
-    private String description;
-
     @Column(name = "price", nullable = false)
     private BigDecimal price;
 
     @Column(name = "Stock", nullable = false)
-    private int stock;
-
-    @Column(name = "product_code", nullable = false, unique = true)
-    private String productCode;
+    private Integer stock;
 
 
 }

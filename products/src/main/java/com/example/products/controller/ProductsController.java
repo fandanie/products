@@ -61,9 +61,5 @@ public class ProductsController {
                 : ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/stock/{productCode}")
-    public ResponseEntity<Boolean> checkStock(@PathVariable String productCode) {
-        Optional<Product> product = productRepository.findByProductCode(productCode);
-        return ResponseEntity.ok(product.isPresent() && product.get().getStock() > 0);
-    }
+
 }

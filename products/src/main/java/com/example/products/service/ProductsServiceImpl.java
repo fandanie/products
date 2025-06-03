@@ -40,12 +40,10 @@ public class ProductsServiceImpl implements ProductsService {
     @Override
     public Product createProduct(CreateProductRequest request) {
         if (request != null &&
-                org.springframework.util.StringUtils.hasLength(request.getName()) &&
-                org.springframework.util.StringUtils.hasLength(request.getDescription())) {
+                org.springframework.util.StringUtils.hasLength(request.getName())) {
 
             Product product = Product.builder()
                     .name(request.getName().trim())
-                    .description(request.getDescription().trim())
                     .price(request.getPrice())
                     .stock(request.getStock())
                     .build();

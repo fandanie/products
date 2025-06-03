@@ -1,18 +1,19 @@
 package com.example.orders.service;
 
 import com.example.orders.client.ProductClient;
-import com.example.orders.dto.ProductResponse;
+import com.example.orders.dto.OrderResponse;
 import com.example.orders.model.Order;
+import com.example.orders.dto.Product;
 import com.example.orders.model.request.CreateOrderRequest;
 import com.example.orders.repository.OrderRepository;
+import com.example.orders.mapper.OrderMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -22,42 +23,44 @@ public class OrderServiceImpl implements OrderService {
     private final ProductClient productClient;
 
     @Override
-    public Order createOrder(CreateOrderRequest request) {
-        ProductResponse product = productClient.getProductById(request.getProductId());
+    public OrderResponse createOrder(CreateOrderRequest request) {
+        Product product = productClient.getProductById(request.getId());
 
-        if (product.getStock() < request.getQuantity()) {
+        if (product.getStock() == null || product.getStock() < request.getQuantity()) {
             throw new IllegalArgumentException("Stock insuficiente para el producto solicitado.");
         }
 
         BigDecimal total = product.getPrice().multiply(BigDecimal.valueOf(request.getQuantity()));
 
         Order order = Order.builder()
-                .orderNumber(UUID.randomUUID().toString())
-                .customerName(request.getCustomerName())
                 .productId(product.getId())
+                .name(request.getCustomerName())
                 .quantity(request.getQuantity())
+                .price(product.getPrice())
                 .totalPrice(total)
-                .createdAt(LocalDateTime.now())
-                .status("PENDING")
+                .stock(product.getStock())
                 .build();
+        Order savedOrder = orderRepository.save(order);
 
-        return orderRepository.save(order);
+        OrderResponse response = OrderMapper.toDto(savedOrder);
+        response.setPrice(product.getPrice());
+        response.setStock(product.getStock());
+        response.setName(product.getName());
+
+        return response;
+
     }
 
     @Override
-    public List<Order> getAllOrders() {
-        return orderRepository.findAll();
+    public OrderResponse getOrderById(Long id) {
+        Order order =orderRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("Orden no encontrada con ID: " + id));
+        return OrderMapper.toDto(order);
     }
 
     @Override
-    public Order getOrderById(Long id) {
-        return orderRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Orden no encontrada con ID: " + id));
-    }
-
-    @Override
-    public List<Order> getOrdersByStatus(String status) {
-        return orderRepository.findByStatus(status);
+    public List<OrderResponse> getAllOrders() {
+        return orderRepository.findAll().stream().map(OrderMapper::toDto).toList();
     }
 
     @Override
