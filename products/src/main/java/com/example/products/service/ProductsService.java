@@ -6,8 +6,8 @@ import com.example.products.model.request.CreateProductRequest;
 
 public interface ProductsService {
     List<Product> getProducts();
-    Product getProduct(String productId);
-    Boolean removeProduct(String productId);
+    Product getProduct(Long productId);
+    Boolean removeProduct(Long productId);
     Product createProduct(CreateProductRequest request);
 
 }

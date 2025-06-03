@@ -41,10 +41,12 @@ public class OrderServiceImpl implements OrderService {
                 .stock(product.getStock())
                 .build();
         Order savedOrder = orderRepository.save(order);
+        // Reducimos el stock en el microservicio de productos
+        productClient.updateStock(product.getId(), request.getQuantity());
 
         OrderResponse response = OrderMapper.toDto(savedOrder);
         response.setPrice(product.getPrice());
-        response.setStock(product.getStock());
+        response.setStock(product.getStock() - request.getQuantity());
         response.setName(product.getName());
 
         return response;
@@ -60,7 +62,25 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderResponse> getAllOrders() {
-        return orderRepository.findAll().stream().map(OrderMapper::toDto).toList();
+        return orderRepository.findAll().stream().map(order -> {
+            OrderResponse response = OrderMapper.toDto(order);
+
+            try {
+                Product product = productClient.getProductById(order.getProductId());
+                if (product != null) {
+                    response.setStock(product.getStock());
+                    response.setPrice(product.getPrice());
+                    response.setName(product.getName());
+                } else {
+                    response.setStock(0);
+                }
+            } catch (Exception e) {
+
+                response.setStock(0);
+            }
+
+            return response;
+        }).toList();
     }
 
     @Override

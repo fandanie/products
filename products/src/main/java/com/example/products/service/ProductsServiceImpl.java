@@ -22,13 +22,13 @@ public class ProductsServiceImpl implements ProductsService {
     }
 
     @Override
-    public Product getProduct(String productId) {
-        return repository.findById(Long.valueOf(productId)).orElse(null);
+    public Product getProduct(Long productId) {
+        return repository.findById(productId).orElse(null);
     }
 
     @Override
-    public Boolean removeProduct(String productId) {
-        Product product = repository.findById(Long.valueOf(productId)).orElse(null);
+    public Boolean removeProduct(Long productId) {
+        Product product = repository.findById(productId).orElse(null);
         if (product != null) {
             repository.delete(product);
             return Boolean.TRUE;

@@ -28,7 +28,7 @@ public class ProductsController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProduct(@PathVariable String id) {
+    public ResponseEntity<Product> getProduct(@PathVariable Long id) {
         Product product = service.getProduct(id);
         if (product != null) {
             return ResponseEntity.ok(product);
@@ -54,12 +54,33 @@ public class ProductsController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable String id) {
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         Boolean removed = service.removeProduct(id);
         return Boolean.TRUE.equals(removed)
                 ? ResponseEntity.ok().build()
                 : ResponseEntity.notFound().build();
     }
+
+    @PutMapping("/{id}/stock")
+    public ResponseEntity<Void> updateStock(@PathVariable Long id, @RequestParam int quantity) {
+        Optional<Product> optionalProduct = productRepository.findById(id);
+
+        if (optionalProduct.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Product product = optionalProduct.get();
+
+        if (product.getStock() < quantity) {
+            return ResponseEntity.badRequest().build(); // stock insuficiente
+        }
+
+        product.setStock(product.getStock() - quantity);
+        productRepository.save(product);
+
+        return ResponseEntity.ok().build();
+    }
+
 
 
 }
