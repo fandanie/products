@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
+import './Checkout.css';
+import { useNavigate } from "react-router-dom";
 
-const Checkout = () => {
+const Checkout = ({ clearCart }) => {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         nombre: '',
         direccion: '',
@@ -17,6 +21,8 @@ const Checkout = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         alert('¡Compra realizada con éxito!');
+        clearCart();
+        navigate('/cart');
     };
 
     return (

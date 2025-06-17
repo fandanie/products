@@ -12,6 +12,7 @@ import './components/Header.css';
 import './components/ProductList.css';
 import './components/ProductCard.css'
 import axios from "axios";
+import Home from "./components/Home";
 
 
 function App() {
@@ -36,9 +37,9 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-            <Route path="/" element={<h2>Bienvenido a la tienda</h2>}/>
+            <Route path="/" element={<Home />} />
             <Route path="/products/:id" element={<ProductDetail />} />
-            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/checkout" element={<Checkout clearCart={() => setCart([])} />} />
             <Route path="/admin" element={<AdminPanel />} />
             <Route path="/products" element={<ProductList products={products} addToCart={addToCart} />} />
             <Route path="/cart" element={<Cart cart={cart} removeFromCart={removeFromCart} />} />

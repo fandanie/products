@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import useLocalStorage from '../hooks/useLocalStorage';
 
 const Cart = ({ cart = [], removeFromCart }) => {
@@ -16,7 +17,16 @@ const Cart = ({ cart = [], removeFromCart }) => {
                             <strong>{item.name}</strong> - ${item.price.toFixed(2)}
                             <button
                                 onClick={() => removeFromCart(index)}
-                                style={{marginLeft: '1rem', color: 'white', backgroundColor: 'red', border: 'none', padding: '5px 10px'}}
+                                style={{
+                                    marginLeft: '1rem',
+                                    color: 'white',
+                                    backgroundColor: 'red',
+                                    border: 'none',
+                                    padding: '5px 10px',
+                                    cursor: 'pointer',
+                                    borderRadius: '5px'
+                                }}
+
                             >
                               Eliminar
                             </button>
@@ -25,6 +35,24 @@ const Cart = ({ cart = [], removeFromCart }) => {
                   </ul>
 
                   <h3>Total: ${total.toFixed(2)}</h3>
+
+                  <div style={{ marginTop: '20px'}}>
+                      <Link to="/checkout">
+                          <button
+                            style={{
+                             padding: '10px 20px',
+                             backgroundColor: 'green',
+                             color: 'white',
+                             border: 'none',
+                             borderRadius: '5px',
+                             fontweight: 'bold',
+                                cursor: 'pointer'
+                            }}
+                          >
+                              Finalizar Compra
+                          </button>
+                      </Link>
+                  </div>
               </>
             )}
         </div>

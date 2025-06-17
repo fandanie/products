@@ -5,7 +5,7 @@ import './Navbar.css';
 const Navbar = () => {
     return (
         <nav className="navbar">
-            <h1>Tienda React</h1>
+            <h1>Tienda Mi Techno-Centro</h1>
             <ul>
                 <li><Link to="/">Inicio</Link></li>
                 <li><Link to="/products">Productos</Link></li>
