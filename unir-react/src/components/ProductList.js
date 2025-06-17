@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { products as mockProducts } from '../data/mockProducts';
 import ProductCard from './ProductCard';
 import SearchBar from "./SearchBar";
+import './ProductList.css';
 
-const ProductList = () => {
-    const [products, setProducts] = useState([]);
+const ProductList = ({products, addToCart}) => {
     const [searchTerm, setSearchTerm] = useState('');
+    const filterProducts = products.filter(product =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
-    useEffect(() => {
-        // Aqui voy a simular la llamada al backend
-        setProducts(mockProducts);
-    }, []);
+    if (!products || products.length === 0) {
+        return (
+            <div className="spinner">
+                <div></div>
+            </div>
+        );
+    }
 
     return (
         <div className="product-list">
@@ -19,7 +23,7 @@ const ProductList = () => {
             <div className="product-grid">
                 {filterProducts.length > 0 ? (
                     filterProducts.map(product => (
-                    <ProductCard key={product.id} product={product} />
+                    <ProductCard key={product.id} product={product} addToCart={addToCart} />
                 ))
                 ) : (
                     <p>No hay productos que coincidan con tu búsqueda.</p>

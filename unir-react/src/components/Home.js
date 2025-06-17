@@ -1,12 +1,18 @@
 import React from 'react';
+import './Home.css';
+import bannerImage from '../assets/img1.jpg';
 
-const Home = () => {
+function Home() {
     return (
-        <div className="home">
-            <h2>Bienvenido a la Tienda React</h2>
-            <p>Explora nuestros productos y encuentra lo que necesitas.</p>
+        <div className="home-container">
+            <img src={bannerImage} alt="Bienvenido a Tienda React" className="banner" />
+            <div className="home-content">
+                <h1>Bienvenido a Tienda React</h1>
+                <p>Explora nuestros productos y disfruta de una experiencia de compra sencilla y rápida.</p>
+                <a href="/products" className="btn-primary">Ver productos</a>
+            </div>
         </div>
     );
-};
+}
 
 export default Home;

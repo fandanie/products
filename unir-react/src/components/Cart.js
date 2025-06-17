@@ -1,39 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
+import useLocalStorage from '../hooks/useLocalStorage';
 
-const Cart = () => {
-    // Simulación de productos en el carrito
-    const [cartItems, setCartItems] = useState([
-        {
-            id: 1,
-            name: "Camiseta React",
-            price: 19.99,
-            quantity: 2
-        },
-        {
-            id: 2,
-            name: "Taza JavaScript",
-            price: 12.99,
-            quantity: 1
-        }
-    ]);
-
-    const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
+const Cart = ({ cart = [], removeFromCart }) => {
+    const total  = cart.reduce((sum, item) => sum + item.price, 0);
     return (
-        <div className="cart">
-            <h2>Carrito de Compras</h2>
-            {cartItems.length === 0 ? (
-                <p>Tu carrito está vacío.</p>
+        <div className={"cart"}>
+            <h2>Tu Carrito</h2>
+            {cart.length === 0 ? (
+                <p>No hay productos en tu carrito.</p>
             ) : (
-                <ul>
-                    {cartItems.map(item => (
-                        <li key={item.id}>
-                            {item.name} - ${item.price} x {item.quantity}
-                        </li>
-                    ))}
-                </ul>
+              <>
+                  <ul>
+                      {cart.map((item, index) => (
+                          <li key={index} style={{ marginBottom: '1rem'}}>
+                            <strong>{item.name}</strong> - ${item.price.toFixed(2)}
+                            <button
+                                onClick={() => removeFromCart(index)}
+                                style={{marginLeft: '1rem', color: 'white', backgroundColor: 'red', border: 'none', padding: '5px 10px'}}
+                            >
+                              Eliminar
+                            </button>
+                          </li>
+                      ))}
+                  </ul>
+
+                  <h3>Total: ${total.toFixed(2)}</h3>
+              </>
             )}
-            <h3>Total: ${total.toFixed(2)}</h3>
         </div>
     );
 };
