@@ -5,8 +5,16 @@ import { Link } from 'react-router-dom';
 const ProductCard = ({ product, addToCart }) => {
     return (
         <div className="product-card">
-            <h3>{product.name}</h3>
-            <p><strong>${product.price}</strong></p>
+            <Link to={`/products/${product.id}`}>
+                {product.imageUrl && (
+                    <img src={product.imageUrl} alt={product.name} className="product-image" />
+                )}
+                <h3>{product.name}</h3>
+            </Link>
+            <p><strong>Marca:</strong> {product.company}</p>
+            <p>{product.shortDescription}</p>
+            <p><strong>precio:</strong> ${product.price}</p>
+            <p><strong>Stock:</strong> {product.stock}</p>
             <button onClick={() => addToCart(product)}>Agregar al carrito</button>
         </div>
     );

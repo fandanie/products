@@ -46,6 +46,10 @@ public class ProductsServiceImpl implements ProductsService {
                     .name(request.getName().trim())
                     .price(request.getPrice())
                     .stock(request.getStock())
+                    .company(request.getCompany())
+                    .shortDescription(request.getShortDescription())
+                    .longDescription(request.getLongDescription())
+                    .imageUrl(request.getImageUrl())
                     .build();
             return repository.save(product);
         }

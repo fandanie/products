@@ -32,4 +32,18 @@ public class CreateProductRequest {
     @NotBlank(message = "Stock is required")
     private Integer stock;
 
+    @JsonProperty("company")
+    @NotBlank(message = "Company is required")
+    private String company;
+
+    @JsonProperty("shortDescription")
+    private String shortDescription;
+
+    @JsonProperty("longDescription")
+    private String longDescription;
+
+    @JsonProperty("imageUrl")
+    private String imageUrl;
+
+
 }

@@ -31,6 +31,7 @@ public class ProductsController {
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProduct(@PathVariable Long id) {
         Product product = service.getProduct(id);
+
         if (product != null) {
             return ResponseEntity.ok(product);
         } else {
@@ -81,6 +82,20 @@ public class ProductsController {
 
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product updatedProduct) {
+        Optional<Product> optional = productRepository.findById(id);
+
+        if (optional.isPresent()) {
+            updatedProduct.setId(id);
+            Product saved = productRepository.save(updatedProduct);
+            return ResponseEntity.ok(saved);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 
 

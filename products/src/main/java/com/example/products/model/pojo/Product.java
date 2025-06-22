@@ -31,5 +31,18 @@ public class Product {
     @Column(name = "Stock", nullable = false)
     private Integer stock;
 
+    @Column(name = "company", nullable = false)
+    private String company;
+
+    @Column(name = "short_description", length = 255)
+    private String shortDescription;
+
+    @Column(name = "long_description", columnDefinition = "TEXT")
+    private String longDescription;
+
+    @Column(name = "image_url")
+    private String imageUrl;
+
+
 
 }

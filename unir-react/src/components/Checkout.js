@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './Checkout.css';
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Checkout = ({ clearCart }) => {
     const navigate = useNavigate();
@@ -20,9 +22,11 @@ const Checkout = ({ clearCart }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        alert('¡Compra realizada con éxito!');
+        toast.success(`¡Gracias por tu compra, ${formData.nombre}!`);
         clearCart();
-        navigate('/cart');
+        setTimeout(() => {
+            navigate('/cart');
+        }, 3000);
     };
 
     return (
@@ -43,6 +47,7 @@ const Checkout = ({ clearCart }) => {
                 </label>
                 <button type="submit">Pagar</button>
             </form>
+            <toastContainer position="top-center" autoClose={3000} />
         </div>
     );
 };
